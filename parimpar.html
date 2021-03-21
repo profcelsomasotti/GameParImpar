@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo Par ou Impar</title>
+    <style>
+        table {
+            width: 300px;
+        }
+        
+        td {
+            height: 120px;
+            border: 1px solid #CCC;
+            width: 150px;
+            text-align: center;
+        }
+        
+        #mostraNumjogador {
+            color: green;
+            font-size: 40pt;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+        }
+        
+        #mostraNumcomputador {
+            color: red;
+            font-size: 40pt;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+        }
+        
+        #resultado {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12pt;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <table>
+            <tr>
+                <td style="height: 25px; font-family: Arial;">Humano</td>
+                <td style="height: 25px; font-family: Arial;">Computador</td>
+            </tr>
+            <tr>
+                <td id="mostraNumjogador"></td>
+                <td id="mostraNumcomputador"></td>
+            </tr>
+            <tr>
+                <td><button id="btpar" onclick="this.disabled = true;">Par</button></td>
+                <td><button id="btimpar" onclick="this.disabled = true;">Impar</button></td>
+            </tr>
+            <tr>
+                <td colspan="2" id="resultado"></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="height: 30px;">
+                    <button id="jogarNovamente" style="display: none;" onclick="window.location='parimpar.html';"> Jogar Novamente </button>
+                </td>
+            </tr>
+        </table>
+    </center>
+    <script>
+        function jogaComputador(ap, numJ) {
+            var numC = Math.round(Math.random() * 5);
+            document.getElementById("mostraNumcomputador").innerHTML = numC;
+            var tot = parseInt(numJ) + parseInt(numC);
+            var rest = tot % 2;
+            var texto;
+            if (rest == 0) {
+                if (ap == "par") {
+                    texto = numJ + " + " + numC + " = " + tot + " que é par! <br>Humano ganhou! ";
+                } else {
+                    texto = numJ + " + " + numC + " = " + tot + " que é par! <br>Computador ganhou! ";
+                }
+            } else {
+                if (ap == "impar") {
+                    texto = numJ + " + " + numC + " = " + tot + " que é impar! <br>Humano ganhou! ";
+                } else {
+                    texto = numJ + " + " + numC + " = " + tot + " que é impar! <br>Computador ganhou! ";
+                }
+            }
+            document.getElementById("resultado").innerHTML = texto;
+            document.getElementById("jogarNovamente").style.display = 'inline';
+        }
+
+        function opcaoPar() {
+            ap = "par";
+            var btpImpar = document.getElementById("btimpar");
+            btpImpar.style.display = 'none';
+            var btpPar = document.getElementById("btpar");
+            btpPar.style.backgroundColor = '#BAE3B9';
+            var numJog = prompt("digite um número de 0 a 5");
+            if (numJog < 0 || numJog > 5) {
+                alert("Número não aceito! \n Comece novamente!");
+                window.location = 'parimpar.html';
+            } else {
+                document.getElementById("mostraNumjogador").innerHTML = numJog;
+                jogaComputador(ap, numJog);
+            }
+        }
+
+        function opcaoImpar() {
+            ap = "impar";
+            var btppar = document.getElementById("btpar");
+            btppar.style.display = 'none';
+            var btpImpar = document.getElementById("btimpar");
+            btpImpar.style.backgroundColor = '#BAE3B9';
+            var numJog = prompt("digite um número de 0 a 5");
+            if (numJog < 0 || numJog > 5) {
+                alert("Número não aceito! \n Comece novamente!");
+                window.location = 'parimpar.html';
+            } else {
+                document.getElementById("mostraNumjogador").innerHTML = numJog;
+                jogaComputador(ap, numJog);
+            }
+
+        }
+
+        function addEvents() {
+            var btOpcaoPar = document.getElementById("btpar");
+            btOpcaoPar.addEventListener("click", opcaoPar);
+            var btOpcaoImpar = document.getElementById("btimpar");
+            btOpcaoImpar.addEventListener("click", opcaoImpar);
+        }
+        window.addEventListener("load", addEvents);
+    </script>
+</body>
+
+</html>
